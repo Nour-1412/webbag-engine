@@ -50,13 +50,17 @@ const card=document.createElement("div");
 
 card.className="tool-card";
 
-card.innerHTML=`
-
+card.innerHTML = `
 <h3>${tool.icon} ${tool.name}</h3>
-
 <p>${tool.description}</p>
-
+<button class="open-tool">فتح الأداة →</button>
 `;
+
+if(tool.name==="إزالة الخلفية"){
+    card.querySelector(".open-tool").onclick=()=>{
+        window.location.href="tools/background-remover/";
+    };
+}
 
 container.appendChild(card);
 

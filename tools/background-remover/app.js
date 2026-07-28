@@ -7,7 +7,9 @@ const downloadBtn = document.getElementById("downloadBtn");
 
 let resultBlob = null;
 
-/* عرض الصورة الأصلية */
+/* ===========================
+   عرض الصورة الأصلية
+=========================== */
 
 imageInput.addEventListener("change", () => {
 
@@ -19,9 +21,15 @@ imageInput.addEventListener("change", () => {
 
     originalPreview.src = imageURL;
 
+    resultPreview.src = "";
+
+    resultBlob = null;
+
 });
 
-/* إزالة الخلفية */
+/* ===========================
+   إزالة الخلفية
+=========================== */
 
 removeBtn.addEventListener("click", async () => {
 
@@ -36,11 +44,12 @@ removeBtn.addEventListener("click", async () => {
     }
 
     removeBtn.disabled = true;
+
     removeBtn.textContent = "جارٍ إزالة الخلفية...";
 
     try {
 
-        const blob = await imglyRemoveBackground(file);
+        const blob = await window.removeBackground(file);
 
         resultBlob = blob;
 
@@ -48,20 +57,23 @@ removeBtn.addEventListener("click", async () => {
 
         resultPreview.src = url;
 
-    } catch (e) {
+    } catch (error) {
 
-        console.error(e);
+        console.error(error);
 
         alert("حدث خطأ أثناء إزالة الخلفية.");
 
     }
 
     removeBtn.disabled = false;
+
     removeBtn.textContent = "إزالة الخلفية";
 
 });
 
-/* تحميل الصورة */
+/* ===========================
+   تحميل الصورة
+=========================== */
 
 downloadBtn.addEventListener("click", () => {
 
@@ -77,7 +89,7 @@ downloadBtn.addEventListener("click", () => {
 
     link.href = URL.createObjectURL(resultBlob);
 
-    link.download = "webbag-background-removed.png";
+    link.download = "background-removed.png";
 
     link.click();
 

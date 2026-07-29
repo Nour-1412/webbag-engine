@@ -57,13 +57,13 @@ removeBtn.addEventListener("click", async () => {
 
         resultPreview.src = url;
 
-    } catch (error) {
+   } catch (error) {
 
-        console.error(error);
+    console.error(error);
 
-        alert("حدث خطأ أثناء إزالة الخلفية.");
+    alert(error.message);
 
-    }
+    } 
 
     removeBtn.disabled = false;
 

@@ -6,9 +6,10 @@ const removeBtn = document.getElementById("removeBtn");
 const downloadBtn = document.getElementById("downloadBtn");
 
 let resultBlob = null;
+let imageElement = null;
 
 /* ===========================
-   عرض الصورة الأصلية
+   اختيار الصورة
 =========================== */
 
 imageInput.addEventListener("change", () => {
@@ -25,6 +26,10 @@ imageInput.addEventListener("change", () => {
 
     resultBlob = null;
 
+    imageElement = new Image();
+
+    imageElement.src = imageURL;
+
 });
 
 /* ===========================
@@ -33,9 +38,7 @@ imageInput.addEventListener("change", () => {
 
 removeBtn.addEventListener("click", async () => {
 
-    const file = imageInput.files[0];
-
-    if (!file) {
+    if (!imageElement) {
 
         alert("اختر صورة أولاً");
 
@@ -49,21 +52,25 @@ removeBtn.addEventListener("click", async () => {
 
     try {
 
-        const blob = await window.removeBackground(file);
+        await imageElement.decode();
+
+        const blob = await window.removeBackground(imageElement);
 
         resultBlob = blob;
 
-        const url = URL.createObjectURL(blob);
+        const resultURL = URL.createObjectURL(blob);
 
-        resultPreview.src = url;
+        resultPreview.src = resultURL;
 
-   } catch (error) {
+    }
 
-    console.error(error);
+    catch (error) {
 
-    alert(error.message);
+        console.error(error);
 
-    } 
+        alert(error.message);
+
+    }
 
     removeBtn.disabled = false;
 

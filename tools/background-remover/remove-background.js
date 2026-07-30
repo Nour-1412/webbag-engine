@@ -26,7 +26,12 @@ Core Engine
 
 async function removeBackgroundCore(file) {
 
-    throw new Error("لم يتم ربط محرك إزالة الخلفية بعد.");
+    /*
+     سيتم لاحقًا ربط
+     محرك إزالة الخلفية الحقيقي.
+    */
+
+    return file;
 
 }
 /*
@@ -135,13 +140,15 @@ async function executeBackgroundRemoval(file) {
 
     return {
 
-        success: true,
+    success: true,
 
-        progress: prepared.progress,
+    progress: prepared.progress,
 
-        image: file
+    image: prepared.imageData,
 
-    };
+    originalFile: file
+
+};
 
 }
 /*

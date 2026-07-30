@@ -62,7 +62,7 @@ BackgroundEngine.prototype.validateFile = function () {
 
     }
 
-    const maxSize = 10 * 1024 * 1024;
+    const maxSize = WebBagConfig.maxFileSize;
 
     if (this.selectedFile.size > maxSize) {
 
@@ -97,15 +97,17 @@ BackgroundEngine.prototype.remove = async function () {
 
     this.validateFile();
 
-    if (typeof removeBackground !== "function") {
+    if (typeof WebBagRemoveBackground === "undefined") {
 
-        throw new Error("محرك إزالة الخلفية غير متوفر.");
+    throw new Error("محرك إزالة الخلفية غير متوفر.");
 
     }
 
     try {
 
-        const outputBlob = await removeBackground(this.selectedFile);
+       const result = await WebBagRemoveBackground.process(this.selectedFile);
+
+const outputBlob = result.image; 
 
         this.resultBlob = outputBlob;
 
@@ -129,7 +131,11 @@ Download Result
 ====================================
 */
 
-BackgroundEngine.prototype.download = function (fileName = "webbag-image.png") {
+BackgroundEngine.prototype.download = function (
+
+    fileName = WebBagConfig.downloadFileName
+
+) {
 
     if (!this.resultBlob) {
 

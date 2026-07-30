@@ -164,15 +164,17 @@ async function processImage() {
 
         showLoading();
 
-        const result =
-            await WebBagRemoveBackground.process(
-                engine.getFile()
-            );
+       const result =
+    await WebBagRemoveBackground.process(
+        engine.getFile()
+    );
 
-        const preview =
-            engine.getResultPreview();
+engine.resultBlob = result.image;
 
-        showResult(preview);
+const preview =
+    engine.getResultPreview();
+
+showResult(preview); 
 
     }
 

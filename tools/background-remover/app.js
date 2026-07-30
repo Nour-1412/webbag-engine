@@ -45,53 +45,7 @@ imageInput.addEventListener("change", async (event) => {
     }
 
 });
-removeBtn.addEventListener("click", async () => {
 
-    if (!engine.hasFile()) {
-
-        alert("الرجاء اختيار صورة أولًا.");
-
-        return;
-
-    }
-
-    try {
-
-        loadingSection.style.display = "block";
-
-        removeBtn.disabled = true;
-
-        downloadBtn.disabled = true;
-
-        await engine.remove();
-
-        const result = engine.getResultPreview();
-
-        resultPreview.src = result;
-
-        resultPreview.style.display = "block";
-
-        resultPlaceholder.style.display = "none";
-
-        downloadBtn.disabled = false;
-
-    }
-
-    catch (error) {
-
-        alert(error.message);
-
-    }
-
-    finally {
-
-        loadingSection.style.display = "none";
-
-        removeBtn.disabled = false;
-
-    }
-
-});
 /*
 ====================================
 Download Button

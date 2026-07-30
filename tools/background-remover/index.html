@@ -5,43 +5,128 @@
 
 <meta charset="UTF-8">
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
 
-<title>إزالة الخلفية | WebBag</title>
+<title>WebBag | إزالة الخلفية</title>
 
-<link rel="stylesheet" href="style.css">
+<meta name="description"
+content="إزالة خلفية الصور بالذكاء الاصطناعي داخل WebBag">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
+<meta name="theme-color"
+content="#2563eb">
 
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect"
+href="https://fonts.googleapis.com">
 
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&display=swap"
+rel="stylesheet">
+
+<link rel="stylesheet"
+href="style.css">
+
+<link rel="icon"
+href="../../assets/icons/favicon.png">
 
 </head>
 
 <body>
 
-<div class="container">
+<div class="background-glow glow1"></div>
 
-<header>
+<div class="background-glow glow2"></div>
 
-<a class="back-btn" href="../../index.html">
-⬅ العودة إلى WebBag
-</a>
+<div class="background-glow glow3"></div>
 
-<h1>🖼️ إزالة الخلفية</h1>
+<div class="app-container">
+
+<header class="hero">
+
+<div class="logo-box">
+
+<div class="logo-icon">
+
+👜
+
+</div>
+
+<div>
+
+<h1>
+
+WebBag
+
+</h1>
 
 <p>
 
-أزل خلفية أي صورة بالذكاء الاصطناعي مباشرة داخل المتصفح.
+أدوات الصور الاحترافية
 
 </p>
 
+</div>
+
+</div>
+
+<a href="../../index.html"
+class="back-button">
+
+🏠 الرئيسية
+
+</a>
+
 </header>
 
-<section class="upload-section">
+<section class="tool-title">
 
-<label class="upload-box">
+<span class="tool-badge">
+
+🔥 AI Tool
+
+</span>
+
+<h2>
+
+إزالة الخلفية من الصور
+
+</h2>
+
+<p>
+
+احصل على صورة PNG شفافة بدقة عالية
+في ثوانٍ قليلة.
+
+</p>
+
+</section>
+
+<section class="upload-area">
+
+<label
+class="upload-card"
+for="imageInput">
+
+<div class="upload-animation">
+
+☁️
+
+</div>
+
+<h3>
+
+اسحب الصورة هنا
+
+</h3>
+
+<span>
+
+أو اضغط لاختيار صورة
+
+</span>
 
 <input
 type="file"
@@ -49,55 +134,83 @@ id="imageInput"
 accept="image/*"
 hidden>
 
-<div class="upload-icon">
-
-📤
-
-</div>
-
-<h3>
-
-اختر صورة
-
-</h3>
-
-<p>
-
-PNG - JPG - WEBP
-
-</p>
-
 </label>
 
 </section>
-
-<section class="preview-section">
+  
+<section class="workspace">
 
 <div class="preview-card">
 
-<h2>
+<div class="card-header">
+
+<span>🖼</span>
+
+<h3>
 
 الصورة الأصلية
 
-</h2>
+</h3>
+
+</div>
+
+<div class="preview-box">
 
 <img
 id="originalPreview"
-alt="Original">
+alt="Original Image">
+
+<div
+class="preview-placeholder"
+id="originalPlaceholder">
+
+اختر صورة للمعاينة
+
+</div>
+
+</div>
+
+</div>
+
+<div class="arrow-box">
+
+<div class="arrow-circle">
+
+➜
+
+</div>
 
 </div>
 
 <div class="preview-card">
 
-<h2>
+<div class="card-header">
+
+<span>✨</span>
+
+<h3>
 
 بعد إزالة الخلفية
 
-</h2>
+</h3>
+
+</div>
+
+<div class="preview-box">
 
 <img
 id="resultPreview"
-alt="Result">
+alt="Result Image">
+
+<div
+class="preview-placeholder"
+id="resultPlaceholder">
+
+ستظهر النتيجة هنا
+
+</div>
+
+</div>
 
 </div>
 
@@ -105,43 +218,144 @@ alt="Result">
 
 <section class="actions">
 
-<button id="removeBtn">
+<button
+id="removeBtn"
+class="primary-btn">
 
-إزالة الخلفية
+🚀 إزالة الخلفية
 
 </button>
 
-<button id="downloadBtn">
+<button
+id="downloadBtn"
+class="secondary-btn">
 
-تحميل PNG
+⬇ تحميل PNG
 
 </button>
 
 </section>
 
-<footer>
+<section
+class="loading-section"
+id="loadingSection">
 
-<span>
+<div class="loader"></div>
 
-Powered by WebBag Engine
+<h3>
 
-</span>
+جارٍ إزالة الخلفية...
+
+</h3>
+
+<p>
+
+يرجى الانتظار قليلاً.
+
+</p>
+
+  </section>
+  <section class="features">
+
+<div class="feature-card">
+
+<div class="feature-icon">
+
+⚡
+
+</div>
+
+<h4>
+
+سرعة عالية
+
+</h4>
+
+<p>
+
+إزالة الخلفية خلال ثوانٍ.
+
+</p>
+
+</div>
+
+<div class="feature-card">
+
+<div class="feature-icon">
+
+🛡️
+
+</div>
+
+<h4>
+
+خصوصية
+
+</h4>
+
+<p>
+
+لا يتم الاحتفاظ بصورك.
+
+</p>
+
+</div>
+
+<div class="feature-card">
+
+<div class="feature-icon">
+
+📱
+
+</div>
+
+<h4>
+
+جميع الأجهزة
+
+</h4>
+
+<p>
+
+متوافق مع الهاتف والكمبيوتر.
+
+</p>
+
+</div>
+
+</section>
+
+<footer class="footer">
+
+<div class="footer-logo">
+
+👜 WebBag
+
+</div>
+
+<p>
+
+Professional Image Tools
+
+</p>
+
+<div class="footer-line"></div>
+
+<p>
+
+© 2026 WebBag. All Rights Reserved.
+
+</p>
 
 </footer>
 
 </div>
 
-<script type="module">
+<script src="config.js"></script>
 
-import { removeBackground }
-from "https://cdn.jsdelivr.net/npm/@imgly/background-removal/+esm";
-
-window.removeBackground = removeBackground;
-
-</script>
+<script src="background-engine.js"></script>
 
 <script src="app.js"></script>
-
 </body>
 
   </html>

@@ -1,103 +1,95 @@
+/*
+====================================
+WebBag Background Remover
+====================================
+*/
+
+const engine = new WebBagBackgroundEngine();
+
 const imageInput = document.getElementById("imageInput");
+
 const originalPreview = document.getElementById("originalPreview");
+const originalPlaceholder = document.getElementById("originalPlaceholder");
+
 const resultPreview = document.getElementById("resultPreview");
+const resultPlaceholder = document.getElementById("resultPlaceholder");
 
 const removeBtn = document.getElementById("removeBtn");
 const downloadBtn = document.getElementById("downloadBtn");
 
-let resultBlob = null;
-let imageElement = null;
+const loadingSection = document.getElementById("loadingSection");
+imageInput.addEventListener("change", async (event) => {
 
-/* ===========================
-   اختيار الصورة
-=========================== */
-
-imageInput.addEventListener("change", () => {
-
-    const file = imageInput.files[0];
+    const file = event.target.files[0];
 
     if (!file) return;
 
-    const imageURL = URL.createObjectURL(file);
-
-    originalPreview.src = imageURL;
-
-    resultPreview.src = "";
-
-    resultBlob = null;
-
-    imageElement = new Image();
-
-    imageElement.src = imageURL;
-
-});
-
-/* ===========================
-   إزالة الخلفية
-=========================== */
-
-removeBtn.addEventListener("click", async () => {
-
-    if (!imageElement) {
-
-        alert("اختر صورة أولاً");
-
-        return;
-
-    }
-
-    removeBtn.disabled = true;
-
-    removeBtn.textContent = "جارٍ إزالة الخلفية...";
-
     try {
 
-        await imageElement.decode();
+        engine.setFile(file);
 
-        const blob = await window.removeBackground(imageElement);
+        const preview = engine.createPreview();
 
-        resultBlob = blob;
+        originalPreview.src = preview;
 
-        const resultURL = URL.createObjectURL(blob);
+        originalPreview.style.display = "block";
 
-        resultPreview.src = resultURL;
+        originalPlaceholder.style.display = "none";
 
     }
 
     catch (error) {
 
-        console.error(error);
-
         alert(error.message);
 
     }
 
-    removeBtn.disabled = false;
-
-    removeBtn.textContent = "إزالة الخلفية";
-
 });
+removeBtn.addEventListener("click", async () => {
 
-/* ===========================
-   تحميل الصورة
-=========================== */
+    if (!engine.hasFile()) {
 
-downloadBtn.addEventListener("click", () => {
-
-    if (!resultBlob) {
-
-        alert("قم بإزالة الخلفية أولاً.");
+        alert("الرجاء اختيار صورة أولًا.");
 
         return;
 
     }
 
-    const link = document.createElement("a");
+    try {
 
-    link.href = URL.createObjectURL(resultBlob);
+        loadingSection.style.display = "block";
 
-    link.download = "background-removed.png";
+        removeBtn.disabled = true;
 
-    link.click();
+        downloadBtn.disabled = true;
+
+        await engine.remove();
+
+        const result = engine.getResultPreview();
+
+        resultPreview.src = result;
+
+        resultPreview.style.display = "block";
+
+        resultPlaceholder.style.display = "none";
+
+        downloadBtn.disabled = false;
+
+    }
+
+    catch (error) {
+
+        alert(error.message);
+
+    }
+
+    finally {
+
+        loadingSection.style.display = "none";
+
+        removeBtn.disabled = false;
+
+    }
 
 });
+

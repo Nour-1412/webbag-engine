@@ -509,6 +509,7 @@ display:none;
 object-fit:contain;
 
 }
+transition:.35s;
 
 .preview-placeholder{
 
@@ -1213,4 +1214,19 @@ box-shadow:
 0 25px 55px rgba(217,119,6,.25);
 
    }
+/* ===========================
+        Drag & Drop Effect
+=========================== */
+
+.upload-card.dragging{
+
+border-color:#facc15;
+
+background:rgba(250,204,21,.18);
+
+transform:scale(1.02);
+
+box-shadow:0 25px 60px rgba(250,204,21,.30);
+
+}
 

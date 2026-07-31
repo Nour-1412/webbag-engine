@@ -1,14 +1,28 @@
-/**
- * WebBag AI Adapter
- */
+import { WebBagProviders } from "./providers.js";
 
-export async function runProvider(provider, file) {
+export async function runProvider(file) {
+
+    const provider = WebBagProviders.get("background");
+
+    if (!provider || !provider.enabled) {
+
+        return {
+
+            success: false,
+
+            message: "لا يوجد محرك مفعل."
+
+        };
+
+    }
 
     return {
 
-        success: false,
+        success: true,
 
-        message: "لم يتم ربط محرك الذكاء الاصطناعي بعد.",
+        provider: provider.name,
+
+        endpoint: provider.endpoint,
 
         image: null
 

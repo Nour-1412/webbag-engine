@@ -1,30 +1,23 @@
-import { WebBagProviders } from "./providers.js";
+const SEGMIND_API =
+"https://api.segmind.com/v1/remove-background";
 
-export async function runProvider(file) {
+export async function runProvider(imageBuffer) {
 
-    const provider = WebBagProviders.get("background");
+    const apiKey = process.env.SEGMIND_API_KEY;
 
-    if (!provider || !provider.enabled) {
+    if (!apiKey) {
 
-        return {
-
-            success: false,
-
-            message: "لا يوجد محرك مفعل."
-
-        };
+        throw new Error("Segmind API Key غير موجود.");
 
     }
 
     return {
 
-        success: true,
+        endpoint: SEGMIND_API,
 
-        provider: provider.name,
+        apiKey,
 
-        endpoint: provider.endpoint,
-
-        image: null
+        imageBuffer
 
     };
 

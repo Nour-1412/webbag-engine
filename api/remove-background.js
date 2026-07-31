@@ -1,29 +1,35 @@
-import { EngineStatus } from "../gateway/status.js";
-import { WebBagProviders } from "../gateway/providers.js";
+import { runProvider } from "../gateway/adapter.js";
 
 export default async function handler(req, res) {
 
-    if (!EngineStatus.ready()) {
+    try {
 
-        return res.status(503).json({
-            success: false,
-            message: "WebBag Engine غير جاهز."
+        const imageBuffer = null;
+
+        const provider = await runProvider(imageBuffer);
+
+        return res.status(200).json({
+
+            success: true,
+
+            provider: provider.endpoint,
+
+            message: "WebBag AI Gateway يعمل بنجاح."
+
         });
 
     }
 
-    const provider = WebBagProviders.get("background");
+    catch(error){
 
-    return res.status(200).json({
+        return res.status(500).json({
 
-        success: true,
+            success:false,
 
-        provider: provider.name,
+            message:error.message
 
-        version: EngineStatus.version,
+        });
 
-        message: "Gateway متصل بنجاح."
-
-    });
+    }
 
 }

@@ -1,14 +1,29 @@
+import { EngineStatus } from "../gateway/status.js";
+import { WebBagProviders } from "../gateway/providers.js";
+
 export default async function handler(req, res) {
 
-  res.status(200).json({
+    if (!EngineStatus.ready()) {
 
-    success: true,
+        return res.status(503).json({
+            success: false,
+            message: "WebBag Engine غير جاهز."
+        });
 
-    message: "WebBag Engine يعمل بنجاح 🚀",
+    }
 
-    version: "1.0.0"
+    const provider = WebBagProviders.get("background");
 
-  });
+    return res.status(200).json({
+
+        success: true,
+
+        provider: provider.name,
+
+        version: EngineStatus.version,
+
+        message: "Gateway متصل بنجاح."
+
+    });
 
 }
-

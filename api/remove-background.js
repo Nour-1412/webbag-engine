@@ -1,35 +1,31 @@
-import { runProvider } from "../gateway/adapter.js";
-
 export default async function handler(req, res) {
+  try {
+    const apiKey = process.env.SEGMIND_API_KEY;
 
-    try {
-
-        const imageBuffer = null;
-
-        const provider = await runProvider(imageBuffer);
-
-        return res.status(200).json({
-
-            success: true,
-
-            provider: provider.endpoint,
-
-            message: "WebBag AI Gateway يعمل بنجاح."
-
-        });
-
+    if (!apiKey) {
+      return res.status(500).json({
+        success: false,
+        message: "Segmind API Key غير موجود."
+      });
     }
 
-    catch(error){
-
-        return res.status(500).json({
-
-            success:false,
-
-            message:error.message
-
-        });
-
+    if (req.method !== "POST") {
+      return res.status(405).json({
+        success: false,
+        message: "استخدم POST فقط."
+      });
     }
 
+    return res.status(200).json({
+      success: true,
+      message: "🎉 تم العثور على مفتاح Segmind بنجاح.",
+      keyExists: true
+    });
+
+  } catch (err) {
+    return res.status(500).json({
+      success: false,
+      message: err.message
+    });
+  }
 }
